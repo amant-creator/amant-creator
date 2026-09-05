@@ -1,0 +1,48 @@
+name: Bootstrap gh-ascii profile card
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/bootstrap-gh-ascii.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Download both themes
+        run: |
+          curl -fL --retry 3 --retry-delay 5 "https://gh.crafter.run/amant-creator?theme=dark" -o dark_mode.svg
+          curl -fL --retry 3 --retry-delay 5 "https://gh.crafter.run/amant-creator?theme=light" -o light_mode.svg
+          test -s dark_mode.svg
+          test -s light_mode.svg
+          grep -q '<svg' dark_mode.svg
+          grep -q '<svg' light_mode.svg
+
+      - name: Update README
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('README.md')
+          text = p.read_text()
+          card = '''<picture>\n  <source media="(prefers-color-scheme: dark)" srcset="dark_mode.svg" />\n  <source media="(prefers-color-scheme: light)" srcset="light_mode.svg" />\n  <img alt="amant-creator's GitHub profile" src="dark_mode.svg" />\n</picture>\n\n'''
+          if '<img alt="amant-creator\'s GitHub profile" src="dark_mode.svg" />' not in text:
+              p.write_text(card + text)
+          PY
+
+      - name: Commit card and README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dark_mode.svg light_mode.svg README.md
+          git rm .github/workflows/bootstrap-gh-ascii.yml
+          git commit -m "feat: add gh-ascii profile card"
+          git push origin main
