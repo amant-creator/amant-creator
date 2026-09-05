@@ -1,18 +1,10 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="dark_mode.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="light_mode.svg" />
-  <img alt="amant-creator's GitHub profile" src="dark_mode.svg" />
-</picture>
+<img alt="amant-creator's GitHub profile — dark theme" src="https://raw.githubusercontent.com/amant-creator/amant-creator/main/dark_mode.svg#gh-dark-mode-only" width="100%" />
+<img alt="amant-creator's GitHub profile — light theme" src="https://raw.githubusercontent.com/amant-creator/amant-creator/main/light_mode.svg#gh-light-mode-only" width="100%" />
 
 ## Hi there 👋
 
 <!--
 **amant-creator/amant-creator** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="dark_mode.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="light_mode.svg" />
-  <img alt="amant-creator's GitHub profile" src="dark_mode.svg" />
-</picture>
 
 Here are some ideas to get you started:
 
